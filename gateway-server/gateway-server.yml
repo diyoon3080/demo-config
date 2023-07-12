@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: service-a
+          predicates:
+            - Path=/service-a/**
+          uri: lb://SERVICE-A
+          filters:
+            - RewritePath=/service-a/(?<segment>.*), /$\{segment}
+        - id: service-b
+          predicates:
+            - Path=/service-b/**
+          uri: lb://service-b
+          filters:
+            - RewritePath=/service-b/(?<segment>.*), /$\{segment}
+        - id: service-c
+          predicates:
+            - Path=/service-c/**
+          uri: lb://service-c
+          filters:
+            - RewritePath=/service-c/(?<segment>.*), /$\{segment}
